@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+
+	"github.com/robinlieb/validate-csv/business/validate"
 )
 
 func main() {
@@ -13,7 +15,7 @@ func main() {
 	filename := validateCmd.String("file", "", "Input file to validate")
 
 	if len(os.Args) < 2 {
-		fmt.Println("expected 'validate' subcommand")
+		fmt.Println("Expected 'validate' subcommand")
 		os.Exit(1)
 	}
 
@@ -26,7 +28,7 @@ func main() {
 			os.Exit(1)
 		}
 	default:
-		fmt.Println("expected 'validate' subcommand")
+		fmt.Println("Expected 'validate' subcommand")
 		os.Exit(1)
 	}
 }
@@ -57,6 +59,11 @@ func HandleValidate(filename string) error {
 			mat_row = append(mat_row, i)
 		}
 		mat = append(mat, mat_row)
+	}
+
+	err = validate.Validate(mat)
+	if err != nil {
+		return err
 	}
 
 	return nil
