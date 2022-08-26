@@ -8,6 +8,15 @@ clean:
 	rm main
 
 # ==============================================================================
+# Code analysis
+
+vet:
+	go vet ./...
+
+lint:
+	staticcheck -checks=all ./...
+
+# ==============================================================================
 # Running tests within the local computer
 
 test:
