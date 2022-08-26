@@ -1,3 +1,4 @@
+// Package validate contains functions to validate two dimensional arrays
 package validate
 
 // Validate validates two dimensinal array input by checking if rows contains

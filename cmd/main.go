@@ -50,15 +50,15 @@ func HandleValidate(filename string) error {
 	var mat [][]int
 
 	for _, row := range data {
-		var mat_row []int
+		var matRow []int
 		for _, value := range row {
 			i, err := strconv.Atoi(value)
 			if err != nil {
 				return err
 			}
-			mat_row = append(mat_row, i)
+			matRow = append(matRow, i)
 		}
-		mat = append(mat, mat_row)
+		mat = append(mat, matRow)
 	}
 
 	err = validate.Validate(mat)
