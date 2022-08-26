@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/csv"
 	"flag"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -30,5 +32,32 @@ func main() {
 }
 
 func HandleValidate(filename string) error {
+	file, err := os.Open(filename)
+	if err != nil {
+		return err
+	}
+
+	defer file.Close()
+
+	csvReader := csv.NewReader(file)
+	data, err := csvReader.ReadAll()
+	if err != nil {
+		return err
+	}
+
+	var mat [][]int
+
+	for _, row := range data {
+		var mat_row []int
+		for _, value := range row {
+			i, err := strconv.Atoi(value)
+			if err != nil {
+				return err
+			}
+			mat_row = append(mat_row, i)
+		}
+		mat = append(mat, mat_row)
+	}
+
 	return nil
 }
