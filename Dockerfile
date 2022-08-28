@@ -6,7 +6,7 @@ FROM golang:1.19-alpine as build
 
 WORKDIR /validate-csv
 COPY ./ /validate-csv/
-RUN go build -o validate-csv ./cmd/main.go
+RUN go build -o validate-csv ./cmd/
 
 FROM alpine as runtime
 COPY --from=build /validate-csv/validate-csv /usr/local/bin/validate-csv

@@ -2,7 +2,7 @@
 # Build
 
 build:
-	go build ./cmd/main.go
+	go build -o validate-csv ./cmd/
 
 clean:
 	rm main
