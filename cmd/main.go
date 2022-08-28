@@ -12,7 +12,7 @@ import (
 
 func main() {
 	validateCmd := flag.NewFlagSet("validate", flag.ExitOnError)
-	filename := validateCmd.String("file", "", "Input file to validate. Should be in CSV format.")
+	filename := validateCmd.String("file", "", "Input file to validate. It should be in CSV format.")
 
 	if len(os.Args) < 2 {
 		fmt.Println("Expected 'validate' subcommand")
