@@ -19,6 +19,7 @@ jobs:
           output-file: "false"
           fallback-version: "1.0.0"
           skip-version-file: "true"
+          skip-commit: "true"
       - name: Create tag
         uses: actions/github-script@v5
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
