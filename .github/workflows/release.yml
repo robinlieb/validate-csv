@@ -20,6 +20,7 @@ jobs:
           output-file: "false"
           fallback-version: "1.0.0"
           skip-version-file: "true"
+          skip-commit: "true"
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v3
         with:
