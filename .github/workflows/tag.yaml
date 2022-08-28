@@ -1,0 +1,32 @@
+name: Create Tag
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Create Tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Conventional Changelog
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          output-file: "false"
+          fallback-version: "1.0.0"
+          skip-version-file: "true"
+      - name: Create tag
+        uses: actions/github-script@v5
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ steps.changelog.outputs.tag }}',
+              sha: context.sha
+            })
