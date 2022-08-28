@@ -32,3 +32,6 @@ brews:
       homepage: 'https://github.com/robinlieb/validate-csv'
       description: 'CLI tool to validate CSV by duplicates and sums of rows.'
       license: 'Apache-2.0'
+dockers:
+  - image_templates:
+    - robinlieb/validate-csv
