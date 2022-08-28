@@ -23,4 +23,11 @@ checksum:
   name_template: 'checksums.txt'
 snapshot:
   name_template: "{{ incpatch .Version }}-next"
-
+brews:
+    - tap:
+        owner: 'robinlieb'
+        name: 'homebrew-brew'
+      folder: 'Formula'
+      homepage: 'https://github.com/robinlieb/validate-csv'
+      description: 'CLI tool to validate CSV by duplicates and sums of rows.'
+      license: 'Apache-2.0'
