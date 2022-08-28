@@ -1,11 +1,12 @@
+project_name: validate-csv
+
 before:
   hooks:
     - go mod tidy
 builds:
-  - id: validate-csv
-    main: ./cmd
+  - main: ./cmd
     binary: validate-csv
-  - env:
+    env:
       - CGO_ENABLED=0
     goos:
       - linux
