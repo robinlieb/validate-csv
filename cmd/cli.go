@@ -15,8 +15,7 @@ func CmdInit() error {
 	filename := validateCmd.String("file", "", "Input file to validate. It should be in CSV format.")
 
 	if len(os.Args) < 2 {
-		fmt.Println("Expected 'validate' subcommand")
-		os.Exit(1)
+		return ErrCommand
 	}
 
 	switch os.Args[1] {
@@ -25,11 +24,10 @@ func CmdInit() error {
 		err := HandleValidate(*filename)
 		if err != nil {
 			fmt.Printf("Recieved error: %s\n", err)
-			os.Exit(1)
+			return err
 		}
 	default:
-		fmt.Println("Expected 'validate' subcommand")
-		os.Exit(1)
+		return ErrCommand
 	}
 
 	return nil
@@ -38,7 +36,7 @@ func CmdInit() error {
 func HandleValidate(filename string) error {
 	file, err := os.Open(filename)
 	if err != nil {
-		return err
+		return ErrFileNotFound
 	}
 
 	defer file.Close()
