@@ -19,15 +19,13 @@ jobs:
           output-file: "false"
           fallback-version: "1.0.0"
           skip-version-file: "true"
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v3
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        with:
+          distribution: goreleaser
+          version: latest
+          args: |
+            release --rm-dist --release-notes ${{ steps.changelog.outputs.clean_changelog }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.changelog.outputs.tag }}
-          release_name: ${{ steps.changelog.outputs.tag }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
-          draft: false
-          prerelease: false
