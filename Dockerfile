@@ -6,7 +6,6 @@ FROM golang:1.19-alpine as build
 
 WORKDIR /validate-csv
 COPY ./ /validate-csv/
-RUN go mod init github.com/robinlieb/validate-csv
 RUN go build -o validate-csv ./cmd/
 
 FROM alpine as runtime
