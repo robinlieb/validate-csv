@@ -10,7 +10,8 @@ import (
 	"github.com/robinlieb/validate-csv/business/validate"
 )
 
-func CmdInit() error {
+func CmdInit(version string) error {
+	fmt.Println(version)
 	validateCmd := flag.NewFlagSet("validate", flag.ExitOnError)
 	filename := validateCmd.String("file", "", "Input file to validate. It should be in CSV format.")
 
