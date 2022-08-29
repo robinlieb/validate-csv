@@ -36,7 +36,7 @@ The CLI tool validate-csv can be installed in three different ways.
 The tool can be installed via the `go get` command:
 
 ```
-go get -u github.com/robinlieb/validate-csv
+go install github.com/robinlieb/validate-csv
 ```
 
 ### Homebrew Package Manager
@@ -62,4 +62,26 @@ The CLI tool takes the `validate` command to validate the csv file. The file to 
 
 ```
 validate-csv validate --file example.csv
+```
+
+Full overview of available commands can be list with the `-h` flag.
+```
+ validate-csv -h
+ CLI tool to validate CSV by duplicates and sums of rows.
+Complete documentation is available at https://github.com/robinlieb/validate-csv
+
+Usage:
+  validate-cli [flags]
+  validate-cli [command]
+
+Available Commands:
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  validate    Input file to validate.
+  version     Prints the version number.
+
+Flags:
+  -h, --help   help for validate-cli
+
+Use "validate-cli [command] --help" for more information about a command.
 ```
