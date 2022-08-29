@@ -5,8 +5,10 @@ import (
 	"os"
 )
 
+var version = "develop"
+
 func main() {
-	if err := CmdInit(); err != nil {
+	if err := CmdInit(version); err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n", err)
 		os.Exit(1)
 	}
