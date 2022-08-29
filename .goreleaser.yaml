@@ -39,3 +39,4 @@ brews:
 dockers:
   - image_templates:
     - robinlieb/validate-csv
+    dockerfile: "build.Dockerfile"
