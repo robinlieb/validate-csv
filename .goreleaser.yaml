@@ -44,3 +44,5 @@ dockers:
   - image_templates:
     - robinlieb/validate-csv
     dockerfile: "build.Dockerfile"
+    extra_files:
+    - run.sh
