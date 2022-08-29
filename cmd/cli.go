@@ -1,77 +1,31 @@
 package main
 
 import (
-	"encoding/csv"
-	"flag"
-	"fmt"
-	"os"
-	"strconv"
-
-	"github.com/robinlieb/validate-csv/business/validate"
+	"github.com/spf13/cobra"
 )
 
 func CmdInit(version string) error {
 
-	validateCmd := flag.NewFlagSet("validate", flag.ExitOnError)
-	filename := validateCmd.String("file", "", "Input file to validate. It should be in CSV format.")
-
-	versionCmd := flag.NewFlagSet("version", flag.ExitOnError)
-
-	if len(os.Args) < 2 {
-		flag.Usage()
-		return ErrCommand
+	rootCmd := &cobra.Command{
+		Use:   "validate-cli",
+		Short: "CLI tool to validate CSV by duplicates and sums of rows.",
+		Long: ` CLI tool to validate CSV by duplicates and sums of rows.
+Complete documentation is available at https://github.com/robinlieb/validate-csv
+		`,
+		Run: func(cmd *cobra.Command, args []string) {
+			cmd.Help()
+		},
 	}
 
-	switch os.Args[1] {
-	case "validate":
-		validateCmd.Parse(os.Args[2:])
-		err := HandleValidate(*filename)
-		if err != nil {
-			fmt.Printf("Recieved error: %s\n", err)
-			return err
-		}
-		fmt.Println("Validation successful.")
-	case "version":
-		versionCmd.Parse(os.Args[2:])
-		fmt.Println(version)
-	default:
-		flag.Usage()
-		return ErrCommand
-	}
+	validateCmd := NewValidateCommand()
+	versionCmd := NewVersionCommand(version)
 
-	return nil
-}
+	rootCmd.AddCommand(validateCmd)
+	rootCmd.AddCommand(versionCmd)
 
-func HandleValidate(filename string) error {
-	file, err := os.Open(filename)
-	if err != nil {
-		return ErrFileNotFound
-	}
+	validateCmd.PersistentFlags().String("file", "", "Input file to validate. It should be in CSV format.")
 
-	defer file.Close()
-
-	csvReader := csv.NewReader(file)
-	data, err := csvReader.ReadAll()
-	if err != nil {
-		return err
-	}
-
-	var mat [][]int
-
-	for _, row := range data {
-		var matRow []int
-		for _, value := range row {
-			i, err := strconv.Atoi(value)
-			if err != nil {
-				return err
-			}
-			matRow = append(matRow, i)
-		}
-		mat = append(mat, matRow)
-	}
-
-	err = validate.Validate(mat)
-	if err != nil {
+	if err := rootCmd.Execute(); err != nil {
 		return err
 	}
 

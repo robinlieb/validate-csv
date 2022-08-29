@@ -1,15 +1,13 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"github.com/robinlieb/validate-csv/foundation/helper"
 )
 
 var version = "develop"
 
 func main() {
 	if err := CmdInit(version); err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(1)
+		helper.PrintErrorAndExit(err)
 	}
 }
