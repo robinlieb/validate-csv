@@ -5,7 +5,7 @@ build:
 	go build -o validate-csv ./cmd/
 
 clean:
-	rm main
+	rm validate-csv
 
 # ==============================================================================
 # Code analysis
